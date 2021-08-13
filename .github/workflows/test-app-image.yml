@@ -9,10 +9,10 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: oceannik/examples-test-app
+  IMAGE_NAME: oceannik/example-test-app
   IMAGE_TAG: latest
   SMOKE_TEST_CMD: ls -al /usr/app
-  TEST_APP_SRC_DIR: examples-test-app
+  TEST_APP_SRC_DIR: example-test-app
 
 jobs:
   build:
