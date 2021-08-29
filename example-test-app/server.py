@@ -9,8 +9,8 @@ Handler = http.server.SimpleHTTPRequestHandler
 
 template_vars = {
     'app_name': os.getenv('APP_NAME', 'Oceannik'),
-    'app_workspace': os.getenv('APP_WORKSPACE', 'default'),
-    'app_debug_params': os.getenv('APP_DEBUG_PARAMS', {}),
+    'app_debug_params': os.getenv('OCEANNIK_DEBUG_PARAMS', {}),
+    'app_environment': os.getenv('OCEANNIK_DEPLOYMENT_ENVIRONMENT', 'default'),
 }
 
 current_script_path = os.path.dirname(os.path.abspath(__file__))

@@ -4,13 +4,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <title>Oceannik test app</title>
+    <title>Oceannik example-test-app</title>
   </head>
   <body>
-    <h1>{{ app_name }} test app ({{ app_workspace }})</h1>
-    <pre>
-      debug parameters: {{ app_debug_params }}
-    </pre>
+    <main class="flex-shrink-0">
+      <div class="container">
+        <div class="row mt-5">
+          <h1><strong>{{ app_name }}</strong> Test Application</h1>
+          <p class="lead">This is an example application you can use to test your deployments.</p>
+        </div>
+        <div class="row mt-2">
+          {% if app_environment | lower == "blue" %}
+          <div class="card text-white bg-primary">
+          {% elif app_environment | lower == "green" %}
+          <div class="card text-white bg-success">
+          {% else %}
+          <div class="card text-dark bg-light">
+          {% endif %}
+            <div class="card-header">The app is running on the {{ app_environment | upper }} environment.</div>
+            <div class="card-body">
+              <p class="card-text">Additional parameters for debugging: <code class="text-white">{{ app_debug_params }}</code></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
   </body>
 </html>
