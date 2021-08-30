@@ -1,0 +1,32 @@
+services:
+  # The project deploys a single service called `test-app`.
+  # Multiple services can be set. Each service can make use
+  # of a different container image.
+  test-app:
+    container:
+      image: 'ghcr.io/oceannik/example-test-app:latest'
+      # Ports published by the container. The first entry in the list
+      # will be used as the port the incoming traffic from the published
+      # service domain will be routed to.
+      # Other ports can be used for other purposes.
+      ports:
+        - '8080'
+    publish:
+      domain: 'test-app.oceannik.com'
+      # If the container publishes multiple ports, this variable specifies
+      # which port should be used for the nginx http(s) server configuration.
+      # A random port will be assigned to the container during port publishing,
+      # but the Deployment Strategy will be able to find the pair correctly by
+      # matching it against the destination port provided in this variable.
+      container_port: '8080'
+      tls:
+        # Enable HTTPS for the published service. When set to false, the service will be
+        # available only via http, on port 80.
+        enabled: true
+        certs:
+          # Automatically generate SSL certificates for the service.
+          # If set to true, certificates will be obtained using Let's Encrypt.
+          # An agreement to the Let's Encrypt's Terms of Service is assumed.
+          generate: true
+          # The email address to which notifications of expiring certificates will be sent.
+          notify: 'infra-admin@oceannik.com'
