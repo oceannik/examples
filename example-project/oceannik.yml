@@ -1,32 +1,43 @@
 services:
-  # The project deploys a single service called `test-app`.
-  # Multiple services can be set. Each service can make use
-  # of a different container image.
+  # This configuration file defines one service called `test-app`.
+  # Multiple services can be set. Each service can make use of a
+  # different container image.
   test-app:
+    # This block defines configuration of the service's container.
     container:
+      # The image for the container. An image hosted on a registry
+      # is recommended. The user could build a custom image by
+      # writing a script to be executed before the deployment starts.
       image: 'ghcr.io/oceannik/example-test-app:latest'
-      # Ports published by the container. The first entry in the list
-      # will be used as the port the incoming traffic from the published
-      # service domain will be routed to.
-      # Other ports can be used for other purposes.
+      # A list of ports published by the container. A random port on
+      # the host will be assigned to each container port during the
+      # container creation. A sample of such binding is listed below.
+      # - '2830:8080' (host:container), where 2830 is a random port.
       ports:
         - '8080'
+    # This block sets whether the service container should be
+    # accessible from the Internet.
     publish:
+      # A domain obtained from a Public Domain Name Registrar.
       domain: 'test-app.oceannik.com'
-      # If the container publishes multiple ports, this variable specifies
-      # which port should be used for the nginx http(s) server configuration.
-      # A random port will be assigned to the container during port publishing,
-      # but the Deployment Strategy will be able to find the pair correctly by
-      # matching it against the destination port provided in this variable.
+      # If the container publishes multiple ports, `container_port`
+      # specifies where traffic should be routed to. The container
+      # port is internal to the container, thus it can not be used
+      # by the nginx Reverse Proxy configuration. Instead, the host
+      # port is searched for and found by the Deployment Strategy.
+      # This is done by checking available pairs against the given
+      # `container_port` value to match the correct port binding.
       container_port: '8080'
       tls:
-        # Enable HTTPS for the published service. When set to false, the service will be
-        # available only via http, on port 80.
+        # Enable HTTPS for the published service. When set to false,
+        # the service will be available only via http, on port 80.
         enabled: true
         certs:
           # Automatically generate SSL certificates for the service.
-          # If set to true, certificates will be obtained using Let's Encrypt.
-          # An agreement to the Let's Encrypt's Terms of Service is assumed.
+          # If set to true, certificates will be obtained using
+          # Let's Encrypt. An agreement to the Let's Encrypt's Terms
+          # of Service is assumed.
           generate: true
-          # The email address to which notifications of expiring certificates will be sent.
+          # An email address to which notifications of expiring
+          # certificates will be sent.
           notify: 'infra-admin@oceannik.com'
